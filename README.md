@@ -9,7 +9,14 @@ Web service that converts markdown tables to CSV tables (friendly for excel).
 
 ## Run in Debug Mode
 
-```python
+```bash
 pip3 install -r requirements.txt
 python3 app.py
+```
+
+## Run in Docker
+
+```bash
+docker build -t md-to-csv .
+docker run -p 5000:5000 md-to-csv
 ```
