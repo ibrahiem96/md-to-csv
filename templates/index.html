@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Markdown Table Validator</title>
+    <style>
+      body {
+          font-family: Arial, sans-serif;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+      }
+
+      .message {
+          font-size: 1.2rem;
+          margin-top: 1rem;
+      }
+
+      form {
+          display: flex;
+          flex-direction: column;
+          gap: 1rem;
+      }
+
+      input[type="submit"], button {
+          background-color: #4CAF50;
+          border: none;
+          color: white;
+          padding: 12px 24px;
+          text-align: center;
+          text-decoration: none;
+          display: inline-block;
+          font-size: 16px;
+          margin: 1rem 0;
+          transition-duration: 0.4s;
+          cursor: pointer;
+      }
+
+      input[type="submit"]:hover, button:hover {
+          background-color: #45a049;
+      }
+
+      pre {
+          background-color: #f8f8f8;
+          padding: 1rem;
+          border-radius: 8px;
+          margin-top: 1rem;
+      }
+  </style>
+</head>
+<body>
+    <h1>Markdown Table Validator</h1>
+    <form action="/" method="post">
+        <label for="md_table">Enter your markdown table:</label><br>
+        <textarea id="md_table" name="md_table" rows="10" cols="50">{{ md_table }}</textarea><br>
+        <input type="submit" value="Validate">
+        {% if message and color == 'green' %}
+            <input type="submit" name="convert_to_csv" value="Convert to CSV">
+        {% endif %}
+    </form>
+    {% if message %}
+        <p class="message" style="color: {{ color }};">{{ message }}</p>
+    {% endif %}
+    {% if md_table %}
+        <h2>Markdown Table:</h2>
+        <pre>{{ md_table }}</pre>
+    {% endif %}
+    {% if csv_table %}
+        <h2>CSV Table:</h2>
+        <pre>{{ csv_table }}</pre>
+        <form action="/download_csv" method="post">
+            <input type="hidden" name="csv_table" value="{{ csv_table }}">
+            <input type="submit" value="Download CSV">
+        </form>
+    {% endif %}
+</body>
+</html>
