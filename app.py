@@ -28,11 +28,17 @@ def md_table_to_csv(md_table):
     csv_output = StringIO()
     csv_writer = csv.writer(csv_output)
 
+    line_count = 0
     for line in lines:
         if not line.startswith('|'):
             continue
+        if line_count == 1:
+            line_count = line_count+1
+            continue
+
         row = [cell.strip() for cell in line.split('|')[1:-1]]
         csv_writer.writerow(row)
+        line_count = line_count+1
 
     return csv_output.getvalue()
 
